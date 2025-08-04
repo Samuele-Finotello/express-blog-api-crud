@@ -20,7 +20,13 @@ const show = (req, res) => {
 
   const postId = posts.find((item) => item['id'] === parseInt(id))
 
-  res.json(postId);
+  if (postId != undefined) {
+    res.json(postId);
+  }
+  else {
+    res.status(404);
+    res.json({ error: 'Not Found', message: 'Post non trovato' });
+  }
 }
 
 //creo la funzione store per creare un nuovo post
@@ -46,11 +52,16 @@ const destroy = (req, res) => {
 
   posts.splice(posts.indexOf(postEliminato), 1);
 
-  res.status(204);
-
-  res.json('');
-  console.log('Lista aggiornata:');
-  console.log(posts);
+  if (postEliminato != undefined) {
+    res.status(204);
+    res.json('');
+    console.log('Lista aggiornata:');
+    console.log(posts);
+  }
+  else {
+    res.status(404);
+    res.json({ error: 'Not Found', message: 'Post non trovato' });
+  }
 }
 
 module.exports = {
