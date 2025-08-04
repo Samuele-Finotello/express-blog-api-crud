@@ -3,7 +3,7 @@ const posts = require('../data/posts.js');
 
 //creo la funzione index che contiene la lista di tutti i post
 const index = (req, res) => {
-  res.send('Lista di tutti i post');
+  res.json(posts);
 }
 
 //creo la funzione show che contiene tutti i dettagli del post preso in oggetto
