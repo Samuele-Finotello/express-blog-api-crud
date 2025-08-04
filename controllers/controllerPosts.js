@@ -8,7 +8,11 @@ const index = (req, res) => {
 
 //creo la funzione show che contiene tutti i dettagli del post preso in oggetto
 const show = (req, res) => {
-  res.send('Dettagli di un post');
+  const id = req['params']['id'];
+
+  const postId = posts.find((item) => item['id'] === parseInt(id))
+
+  res.json(postId);
 }
 
 //creo la funzione store per creare un nuovo post
