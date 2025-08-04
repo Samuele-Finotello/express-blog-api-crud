@@ -3,7 +3,15 @@ const posts = require('../data/posts.js');
 
 //creo la funzione index che contiene la lista di tutti i post
 const index = (req, res) => {
-  res.json(posts);
+  let tagsArray = [];
+  if (req['query']['tags'] != undefined) {
+    tagsArray = posts.filter((item) => item['tags'].includes(req['query']['tags']))
+  }
+  else {
+    tagsArray = posts;
+  }
+
+  res.json(tagsArray);
 }
 
 //creo la funzione show che contiene tutti i dettagli del post preso in oggetto
