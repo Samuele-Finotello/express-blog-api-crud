@@ -32,7 +32,17 @@ const modify = (req, res) => {
 
 //creo la funzione destroy per eliminare un post
 const destroy = (req, res) => {
-  res.send('Elimina un post');
+  const eliminato = req['params']['id'];
+
+  const postEliminato = posts.find((item) => item['id'] === parseInt(eliminato))
+
+  posts.splice(posts.indexOf(postEliminato), 1);
+
+  res.status(204);
+
+  res.json('');
+  console.log('Lista aggiornata:');
+  console.log(posts);
 }
 
 module.exports = {
