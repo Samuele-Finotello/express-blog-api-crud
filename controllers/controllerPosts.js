@@ -53,6 +53,7 @@ const update = (req, res) => {
 
   const postModified = posts.find((item) => item['id'] === parseInt(modified))
 
+  //bonus
   if (postModified != undefined) {
     postModified['title'] = req['body']['title'];
     postModified['content'] = req['body']['content'];
