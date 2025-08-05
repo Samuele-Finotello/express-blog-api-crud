@@ -5,7 +5,7 @@ const posts = require('../data/posts.js');
 const index = (req, res) => {
   let tagsArray = [];
   if (req['query']['tags'] != undefined) {
-    tagsArray = posts.filter((item) => item['tags'].includes(req['query']['tags']))
+    tagsArray = posts.filter((item) => item['tags'].includes(req['query']['tags'].toLowerCase()))
   }
   else {
     tagsArray = posts;
@@ -31,7 +31,20 @@ const show = (req, res) => {
 
 //creo la funzione store per creare un nuovo post
 const store = (req, res) => {
-  res.send('Crea un nuovo post');
+  const newPostId = posts.length + 1;
+
+  const newPost = {
+    id: newPostId,
+    title: req['body']['title'],
+    content: req['body']['content'],
+    image: req['body']['image'],
+    tags: req['body']['tags']
+  }
+
+  posts.push(newPost);
+
+  res.status(201).json(newPost);
+  console.log(posts)
 }
 
 //creo la funzione update per aggiornare completamente un post
