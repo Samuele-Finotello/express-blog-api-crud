@@ -49,7 +49,21 @@ const store = (req, res) => {
 
 //creo la funzione update per aggiornare completamente un post
 const update = (req, res) => {
-  res.send('Aggiorna interamente un post');
+  const modified = req['params']['id'];
+
+  const postModified = posts.find((item) => item['id'] === parseInt(modified))
+
+  if (postModified != undefined) {
+    postModified['title'] = req['body']['title'];
+    postModified['content'] = req['body']['content'];
+    postModified['image'] = req['body']['image'];
+    postModified['tags'] = req['body']['tags'];
+  }
+  else {
+    res.status(404).json({ error: "Not Found", message: "Post non trovato" });
+  }
+  res.json(postModified);
+  console.log(posts);
 }
 
 //creo la funzione modify per aggiornare solo una parte del post
