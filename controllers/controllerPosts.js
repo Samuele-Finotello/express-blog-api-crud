@@ -49,27 +49,54 @@ const store = (req, res) => {
 
 //creo la funzione update per aggiornare completamente un post
 const update = (req, res) => {
+  const update = req['params']['id'];
+
+  const postUpdate = posts.find((item) => item['id'] === parseInt(update))
+
+  //bonus
+  if (postUpdate != undefined) {
+    if (!req['body']['title'] || !req['body']['content'] || !req['body']['image'] || !req['body']['tags']) {
+      res.status(500).json({ error: "1 o più campi non compilati", message: "Compilare tutti i campi" })
+    }
+    else {
+      postUpdate['title'] = req['body']['title'];
+      postUpdate['content'] = req['body']['content'];
+      postUpdate['image'] = req['body']['image'];
+      postUpdate['tags'] = req['body']['tags'];
+    }
+  }
+  else {
+    res.status(404).json({ error: "Not Found", message: "Post non trovato" });
+  }
+  res.json(postUpdate);
+  console.log(posts);
+}
+
+//creo la funzione modify per aggiornare solo una parte del post
+const modify = (req, res) => {
   const modified = req['params']['id'];
 
   const postModified = posts.find((item) => item['id'] === parseInt(modified))
 
-  //bonus
   if (postModified != undefined) {
-    postModified['title'] = req['body']['title'];
-    postModified['content'] = req['body']['content'];
-    postModified['image'] = req['body']['image'];
-    postModified['tags'] = req['body']['tags'];
+    if (req['body']['title']) {
+      postModified['title'] = req['body']['title'];
+    }
+    if (req['body']['content']) {
+      postModified['content'] = req['body']['content'];
+    }
+    if (req['body']['image']) {
+      postModified['image'] = req['body']['image'];
+    }
+    if (req['body']['tags']) {
+      postModified['tags'] = req['body']['tags'];
+    }
   }
   else {
     res.status(404).json({ error: "Not Found", message: "Post non trovato" });
   }
   res.json(postModified);
   console.log(posts);
-}
-
-//creo la funzione modify per aggiornare solo una parte del post
-const modify = (req, res) => {
-  res.send('Aggiorna parzialmente un post');
 }
 
 //creo la funzione destroy per eliminare un post
