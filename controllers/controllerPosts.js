@@ -56,7 +56,7 @@ const update = (req, res) => {
   //bonus
   if (postUpdate != undefined) {
     if (!req['body']['title'] || !req['body']['content'] || !req['body']['image'] || !req['body']['tags']) {
-      res.status(500).json({ error: "1 o più campi non compilati", message: "Compilare tutti i campi" })
+      res.status(400).json({ error: "1 o più campi non compilati", message: "Compilare tutti i campi" })
     }
     else {
       postUpdate['title'] = req['body']['title'];
