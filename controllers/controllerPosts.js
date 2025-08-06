@@ -31,7 +31,7 @@ const show = (req, res) => {
 
 //creo la funzione store per creare un nuovo post
 const store = (req, res) => {
-  const newPostId = posts.length + 1;
+  const newPostId = posts[posts.length - 1]['id'] + 1;
 
   const newPost = {
     id: newPostId,
